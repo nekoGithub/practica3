@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo contacto</title>
+    <style>
+        .flex {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+            gap: 20px;
+            padding: 0 80px;
+            box-sizing: border-box;
+        }
+
+        fieldset {
+            border: 2px solid #000000;
+            /* Borde verde */
+            padding: 20px;
+            border-radius: 5px;
+            /* Bordes redondeados */
+            box-sizing: border-box;
+        }
+
+        .flex fieldset:first-child {
+            flex-basis: 70%;
+        }
+
+        .flex fieldset:last-child {
+            flex-basis: 30%;
+        }
+
+        legend {
+            font-weight: bold;
+            color: black;
+        }
+
+        label {
+            display: inline-block;
+            width: 120px;
+            margin-right: 10px;
+
+        }
+
+        input {
+            padding: 8px;
+            margin-bottom: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .flex-input {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .flex-radio {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 0px;
+        }
+
+        .flex-div-radio {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+
+        }
+
+        .flex-div-radio .input-radio {
+            width: 30%;
+            margin: auto 0;
+        }
+
+        .flex-div-radio label {
+
+            margin-right: 35px;
+
+        }
+
+        .flex-radio label {
+            width: 12%;
+        }
+
+        .enviar {
+            margin-top: 40px;
+            width: 20%;
+            margin-left: 90px;
+        }
+
+        .flex-check {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+        }
+
+        .flex-check input {
+            width: 17%
+        }
+
+        .flex-check label {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="text-align: center;">Registro de seminarios</h1>
+    <form action="{{ url_for('nuevo') }}" method="POST">
+        <div class="flex">
+            <fieldset>
+                <legend>Información Personal</legend>
+                <div class="flex-input">
+                    <label>Fecha:</label>
+                    <input type="date" id="fecha" name="fecha" required>
+                </div>
+                <div class="flex-input">
+                    <label>Nombre:</label>
+                    <input type="text" id="nombre" name="nombre">
+                </div>
+                <div class="flex-input">
+                    <label>Apellidos:</label>
+                    <input type="text" id="apellido" name="apellido">
+                </div>
+                <div class="flex-radio">
+                    <label>Turno:</label>
+
+                    <div class="flex-div-radio">
+                        <input class="input-radio" type="radio" value="Mañana" name="turno" id="turno">
+                        <label for="">Mañana</label>
+                    </div>
+                    <div class="flex-div-radio">
+                        <input class="input-radio" type="radio" value="Tarde" name="turno" id="turno">
+                        <label for="">Tarde</label>
+                    </div>
+                    <div class="flex-div-radio">
+                        <input class="input-radio" type="radio" value="Noche" name="turno" id="turno">
+                        <label for="">Noche</label>
+                    </div>
+
+
+
+
+                </div>
+
+
+            </fieldset>
+            <fieldset>
+                <legend>Seminarios disponibles</legend>
+                {% for seminario in seminarios %}
+                <div class="flex-check">
+                    <input type="checkbox" name="seminarios[]" id="{{ loop.index }}" value="{{ seminario }}">
+                    <label for="{{ loop.index }}">{{ seminario }}</label>
+                </div>
+                {% endfor %}
+
+            </fieldset>
+        </div>
+        <input class="enviar" type="submit" value="Enviar">
+
+    </form>
+</body>
+
+</html>
